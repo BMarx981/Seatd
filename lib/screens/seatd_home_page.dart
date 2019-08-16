@@ -176,7 +176,6 @@ class ListViewContainer extends StatelessWidget {
   }) : super(key: key);
 
   _navigateToNextScreen(String name, BuildContext context) {
-    print(name);
     switch (name) {
       case 'Committes':
         Navigator.of(context).push(
