@@ -21,14 +21,23 @@ class SeatdHomePage extends StatefulWidget {
 
 class _SeatdHomePageState extends State<SeatdHomePage> {
   NetworkHelper nh = NetworkHelper.url(url: url);
-  bool selected = true;
+  bool houseSelected = true;
+  bool senateSelected = false;
   dynamic data;
   _getDataFromHelper() async {
     data = await nh.getData();
   }
 
   String _getChamber() {
-    return selected ? 'House' : 'Senate';
+    String selected = '';
+    if (houseSelected && !senateSelected) {
+      selected = 'House';
+    } else if (!houseSelected && senateSelected) {
+      selected = 'Senate';
+    } else if (houseSelected && senateSelected) {
+      selected = 'Joint';
+    }
+    return selected;
   }
 
   @override
@@ -90,15 +99,16 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          if (!selected) {
-                            selected = !selected;
-                          }
+                          houseSelected = !houseSelected;
                         });
+                        if (!senateSelected && !houseSelected) {
+                          senateSelected = !senateSelected;
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: selected
+                            color: houseSelected
                                 ? Colors.black
                                 : Colors.grey.withOpacity(0),
                             width: 2,
@@ -106,7 +116,7 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                           borderRadius: BorderRadius.circular(
                             20.0,
                           ),
-                          color: selected ? Colors.blue : Colors.lightBlue,
+                          color: houseSelected ? Colors.blue : Colors.lightBlue,
                         ),
                         child: Center(
                           child: Padding(
@@ -124,15 +134,16 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          if (selected) {
-                            selected = !selected;
-                          }
+                          senateSelected = !senateSelected;
                         });
+                        if (!houseSelected && !senateSelected) {
+                          houseSelected = !houseSelected;
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                            color: !selected
+                            color: senateSelected
                                 ? Colors.black
                                 : Colors.grey.withOpacity(0),
                             width: 2,
@@ -140,7 +151,7 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                           borderRadius: BorderRadius.circular(
                             20.0,
                           ),
-                          color: !selected ? Colors.red : Colors.redAccent,
+                          color: senateSelected ? Colors.red : Colors.redAccent,
                         ),
                         child: Center(
                           child: Padding(
