@@ -9,11 +9,20 @@ class BillsScreen extends StatefulWidget {
 }
 
 class _BillsScreenState extends State<BillsScreen> {
+  String _getTitle() {
+    if (widget.chamber == 'Joint') {
+      return 'Joint Statements';
+    }
+    return 'Bills for the ${widget.chamber}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Bills for the ${widget.chamber}'),
+        title: Text(
+          _getTitle(),
+        ),
       ),
       body: Container(
         child: Text(

@@ -11,11 +11,21 @@ class CommitteesScreen extends StatefulWidget {
 
 class _CommitteesScreenState extends State<CommitteesScreen> {
   NetworkHelper nh = NetworkHelper();
+
+  String _getTitle() {
+    if (widget.chamber == 'Joint') {
+      return 'Joint Statements';
+    }
+    return 'Commitees for the ${widget.chamber}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Commitees for the ${widget.chamber}'),
+        title: Text(
+          _getTitle(),
+        ),
       ),
       body: Container(
         child: Text(

@@ -11,11 +11,20 @@ class VotesScreen extends StatefulWidget {
 }
 
 class _VotesScreenState extends State<VotesScreen> {
+  String _getTitle() {
+    if (widget.chamber == 'Joint') {
+      return 'Joint Statements';
+    }
+    return 'Commitees for the ${widget.chamber}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Votes for the ${widget.chamber}'),
+        title: Text(
+          _getTitle(),
+        ),
       ),
       body: Container(
         child: Text(

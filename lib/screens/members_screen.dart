@@ -9,11 +9,20 @@ class MembersScreen extends StatefulWidget {
 }
 
 class _MembersScreenState extends State<MembersScreen> {
+  String _getTitle() {
+    if (widget.chamber == 'Joint') {
+      return 'Joint Statements';
+    }
+    return 'Members for the ${widget.chamber}';
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Members for the ${widget.chamber}'),
+        title: Text(
+          _getTitle(),
+        ),
       ),
       body: Container(
         child: Text(
