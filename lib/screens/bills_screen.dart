@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class BillsScreen extends StatefulWidget {
-  BillsScreen({this.chamber});
-  String chamber;
+  BillsScreen({Key key, @required this.chamber}) : super(key: key);
+  final String chamber;
   static const String id = 'bills';
   @override
   _BillsScreenState createState() => _BillsScreenState();

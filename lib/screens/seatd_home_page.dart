@@ -20,7 +20,7 @@ class SeatdHomePage extends StatefulWidget {
 }
 
 class _SeatdHomePageState extends State<SeatdHomePage> {
-  NetworkHelper nh = NetworkHelper(url);
+  NetworkHelper nh = NetworkHelper.url(url: url);
   bool selected = true;
   dynamic data;
   _getDataFromHelper() async {
@@ -28,7 +28,7 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
   }
 
   String _getChamber() {
-    return selected ? 'house' : 'senate';
+    return selected ? 'House' : 'Senate';
   }
 
   @override
@@ -51,7 +51,7 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                     height: 40,
                   ),
                   ListViewContainer(
-                    text: 'Committes',
+                    text: 'Committees',
                     chamber: _getChamber(),
                   ),
                   Separator(),
@@ -177,10 +177,10 @@ class ListViewContainer extends StatelessWidget {
 
   _navigateToNextScreen(String name, BuildContext context) {
     switch (name) {
-      case 'Committes':
+      case 'Committees':
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => CommittesScreen(chamber: chamber),
+            builder: (context) => CommitteesScreen(chamber: chamber),
           ),
         );
         break;

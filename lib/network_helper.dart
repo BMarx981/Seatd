@@ -4,7 +4,8 @@ import 'dart:convert';
 const String apiKey = 'PoTWnFZutVt8ZgzbvY80cUn4SAw2XyQUb4N7ejJh';
 
 class NetworkHelper {
-  NetworkHelper(this.url);
+  NetworkHelper({this.url = ''});
+  NetworkHelper.url({this.url});
   final String url;
 
   Future getData() async {

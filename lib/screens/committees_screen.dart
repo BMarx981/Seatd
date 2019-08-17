@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/network_helper.dart';
 
-class CommittesScreen extends StatefulWidget {
-  CommittesScreen({this.chamber});
+class CommitteesScreen extends StatefulWidget {
+  CommitteesScreen({Key key, @required this.chamber}) : super(key: key);
   final String chamber;
   static const String id = 'committes';
   @override
-  _CommittesScreenState createState() => _CommittesScreenState();
+  _CommitteesScreenState createState() => _CommitteesScreenState();
 }
 
-class _CommittesScreenState extends State<CommittesScreen> {
-  NetworkHelper nh = NetworkHelper('https://api.propublica.org/congress/v1/115/${widget.chamber}/committees.json');
-  dynamic data =
+class _CommitteesScreenState extends State<CommitteesScreen> {
+  NetworkHelper nh = NetworkHelper();
   @override
   Widget build(BuildContext context) {
     return Scaffold(

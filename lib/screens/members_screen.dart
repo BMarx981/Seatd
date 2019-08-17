@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class MembersScreen extends StatefulWidget {
-  MembersScreen({this.chamber});
+  MembersScreen({Key key, @required this.chamber}) : super(key: key);
   static const String id = 'members';
-  String chamber;
+  final String chamber;
   @override
   _MembersScreenState createState() => _MembersScreenState();
 }

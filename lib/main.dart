@@ -21,7 +21,7 @@ class Seatd extends StatelessWidget {
         VotesScreen.id: (context) => VotesScreen(),
         BillsScreen.id: (context) => BillsScreen(),
         MembersScreen.id: (context) => MembersScreen(),
-        CommittesScreen.id: (context) => CommittesScreen(),
+        CommitteesScreen.id: (context) => CommitteesScreen(),
         StatementsScreen.id: (context) => StatementsScreen(),
         SeatdHomePage.id: (context) => SeatdHomePage()
       },
