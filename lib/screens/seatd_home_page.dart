@@ -5,10 +5,21 @@ import 'members_screen.dart';
 import 'bills_screen.dart';
 import 'votes_screen.dart';
 import 'statements_screen.dart';
+import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
 
 //const String url = 'https://api.propublica.org/congress/v1/115/senate/members.json';
 const String url =
     'https://api.propublica.org/congress/v1/house/votes/recent.json';
+const List<String> congressNumbers = [
+  '110',
+  '111',
+  '112',
+  '113',
+  '114',
+  '115',
+  '116'
+];
 
 class SeatdHomePage extends StatefulWidget {
   static const String id = 'seatd';
@@ -23,6 +34,7 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
   NetworkHelper nh = NetworkHelper.url(url: url);
   bool houseSelected = true;
   bool senateSelected = false;
+  String selectedCongress = '';
   dynamic data;
   _getDataFromHelper() async {
     data = await nh.getData();
@@ -40,6 +52,45 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
     return selected;
   }
 
+  DropdownButton<String> androidDropdown() {
+    List<DropdownMenuItem<String>> dropDownItems = [];
+    for (String congress in congressNumbers) {
+      var newItem = DropdownMenuItem(child: Text(congress), value: congress);
+      dropDownItems.add(newItem);
+    }
+
+    return DropdownButton<String>(
+      value: selectedCongress,
+      items: dropDownItems,
+      onChanged: (value) {
+        setState(() {
+          selectedCongress = value;
+        });
+      },
+    );
+  }
+
+  CupertinoPicker iOSPicker() {
+    List<Text> pickerItems = [];
+    for (String congress in congressNumbers) {
+      pickerItems.add(Text(
+        congress,
+        style: TextStyle(color: Colors.black),
+      ));
+    }
+
+    return CupertinoPicker(
+      backgroundColor: Colors.lightBlueAccent,
+      itemExtent: 32.0,
+      onSelectedItemChanged: (selectedItem) {
+        setState(() {
+          selectedCongress = congressNumbers[selectedItem];
+        });
+      },
+      children: pickerItems,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,45 +99,55 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
       ),
       body: SafeArea(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                    ),
+                    child: Text(
+                      "Select a Congress",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            //Select Congress
             Expanded(
-              flex: 3,
-              child: ListView(
-                children: <Widget>[
-                  SizedBox(
-                    height: 40,
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  ListViewContainer(
-                    text: 'Committees',
-                    chamber: _getChamber(),
-                  ),
-                  Separator(),
-                  ListViewContainer(
-                    text: 'Members',
-                    chamber: _getChamber(),
-                  ),
-                  Separator(),
-                  ListViewContainer(
-                    text: 'Bills',
-                    chamber: _getChamber(),
-                  ),
-                  Separator(),
-                  ListViewContainer(
-                    text: 'Votes',
-                    chamber: _getChamber(),
-                  ),
-                  Separator(),
-                  ListViewContainer(
-                    text: 'Statements',
-                    chamber: _getChamber(),
-                  ),
-                  Separator(),
-                ],
+              flex: 1,
+              child: Container(
+                height: 15.0,
+                child: Platform.isIOS ? iOSPicker() : androidDropdown(),
               ),
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                    ),
+                    child: Text(
+                      "Select a Chamber",
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            //Select chamber
             Container(
               decoration: BoxDecoration(
                 color: Colors.grey[300],
@@ -125,6 +186,9 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                               'House',
                               style: TextStyle(
                                 fontSize: 40.0,
+                                color: houseSelected
+                                    ? Colors.black
+                                    : Colors.black.withOpacity(.4),
                               ),
                             ),
                           ),
@@ -160,6 +224,9 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                               'Senate',
                               style: TextStyle(
                                 fontSize: 40.0,
+                                color: senateSelected
+                                    ? Colors.black
+                                    : Colors.black.withOpacity(.4),
                               ),
                             ),
                           ),
@@ -168,6 +235,37 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                     ),
                   ],
                 ),
+              ),
+            ),
+            //List of choices
+            Expanded(
+              flex: 5,
+              child: ListView(
+                children: <Widget>[
+                  SizedBox(
+                    height: 40,
+                  ),
+                  ListViewContainer(
+                    text: 'Committees',
+                    chamber: _getChamber(),
+                  ),
+                  ListViewContainer(
+                    text: 'Members',
+                    chamber: _getChamber(),
+                  ),
+                  ListViewContainer(
+                    text: 'Bills',
+                    chamber: _getChamber(),
+                  ),
+                  ListViewContainer(
+                    text: 'Votes',
+                    chamber: _getChamber(),
+                  ),
+                  ListViewContainer(
+                    text: 'Statements',
+                    chamber: _getChamber(),
+                  ),
+                ],
               ),
             ),
           ],
@@ -233,10 +331,11 @@ class ListViewContainer extends StatelessWidget {
         _navigateToNextScreen(text, context);
       },
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.fromLTRB(
-              38.0,
+              18.0,
               8,
               0,
               0,
@@ -248,6 +347,7 @@ class ListViewContainer extends StatelessWidget {
               ),
             ),
           ),
+          Separator(),
         ],
       ),
     );
@@ -261,13 +361,15 @@ class Separator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      child: Text(
-        '____________________________',
-        textAlign: TextAlign.right,
-        style: TextStyle(
-          fontSize: 12.0,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 8.0),
+      child: Container(
+        child: Text(
+          '________________________________________________________',
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            fontSize: 12.0,
+          ),
         ),
       ),
     );
