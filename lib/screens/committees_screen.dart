@@ -1,25 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:seatd/network_helper.dart';
+import 'package:seatd/models/committee_model.dart';
 
 class CommitteesScreen extends StatefulWidget {
   CommitteesScreen(
-      {Key key, @required this.chamber, @required this.congressNum})
+      {Key key,
+      @required this.chamber,
+      @required this.congressNum,
+      @required this.cm})
       : super(key: key);
   final String chamber;
   final String congressNum;
+  final CommitteeModel cm;
   static const String id = 'committes';
   @override
   _CommitteesScreenState createState() => _CommitteesScreenState();
 }
 
 class _CommitteesScreenState extends State<CommitteesScreen> {
-  NetworkHelper nh = NetworkHelper();
+  CommitteeModel cm;
+  String title = '';
+  @override
+  initState() {
+    super.initState();
+    cm = widget.cm;
+    _getTitle();
+    print(cm.data['results']);
+  }
 
-  String _getTitle() {
+  _getTitle() {
     if (widget.chamber == 'Joint') {
-      return 'Joint Commitees';
+      title = 'Joint Commitees';
     }
-    return 'Commitees for the ${widget.chamber}';
+    title = 'Commitees for the ${widget.chamber}';
   }
 
   @override
@@ -27,7 +39,7 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          _getTitle(),
+          title,
         ),
       ),
       body: Container(

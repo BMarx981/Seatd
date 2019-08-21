@@ -1,24 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:seatd/network_helper.dart';
 import 'committees_screen.dart';
+import 'package:seatd/models/committee_model.dart';
 import 'members_screen.dart';
+import 'package:seatd/models/members_model.dart';
 import 'bills_screen.dart';
+import 'package:seatd/models/bills_model.dart';
 import 'votes_screen.dart';
+import 'package:seatd/models/votes_model.dart';
 import 'statements_screen.dart';
+import 'package:seatd/models/statements_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'dart:io' show Platform;
 
 //const String url = 'https://api.propublica.org/congress/v1/115/senate/members.json';
-const String url =
-    'https://api.propublica.org/congress/v1/house/votes/recent.json';
+//const String url =
+//    'https://api.propublica.org/congress/v1/house/votes/recent.json';
+const String url = '';
 const List<String> congressNumbers = [
-  '110',
-  '111',
-  '112',
-  '113',
-  '114',
+  '116',
   '115',
-  '116'
+  '114',
+  '113',
+  '112',
+  '111',
+  '110',
 ];
 
 class SeatdHomePage extends StatefulWidget {
@@ -31,14 +36,10 @@ class SeatdHomePage extends StatefulWidget {
 }
 
 class _SeatdHomePageState extends State<SeatdHomePage> {
-  NetworkHelper nh = NetworkHelper.url(url: url);
   bool houseSelected = true;
   bool senateSelected = false;
-  String selectedCongress = '';
+  var selectedCongress = '116';
   dynamic data;
-  _getDataFromHelper() async {
-    data = await nh.getData();
-  }
 
   String _getChamber() {
     String selected = '';
@@ -248,22 +249,27 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                   ListViewContainer(
                     text: 'Committees',
                     chamber: _getChamber(),
+                    selectedCongress: selectedCongress,
                   ),
                   ListViewContainer(
                     text: 'Members',
                     chamber: _getChamber(),
+                    selectedCongress: selectedCongress,
                   ),
                   ListViewContainer(
                     text: 'Bills',
                     chamber: _getChamber(),
+                    selectedCongress: selectedCongress,
                   ),
                   ListViewContainer(
                     text: 'Votes',
                     chamber: _getChamber(),
+                    selectedCongress: selectedCongress,
                   ),
                   ListViewContainer(
                     text: 'Statements',
                     chamber: _getChamber(),
+                    selectedCongress: selectedCongress,
                   ),
                 ],
               ),
@@ -278,46 +284,93 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
 class ListViewContainer extends StatelessWidget {
   final String text;
   final String chamber;
+  final String selectedCongress;
   ListViewContainer({
     Key key,
     this.text,
     this.chamber,
+    this.selectedCongress,
+    boxColor = Colors.white,
   }) : super(key: key);
 
-  _navigateToNextScreen(String name, BuildContext context) {
+  String _buildURL() {
+    return 'https://api.propublica.org/congress/v1/${selectedCongress.toLowerCase()}/${chamber.toLowerCase()}/${text.toLowerCase()}.json';
+  }
+
+  _navigateToNextScreen(String name, BuildContext context) async {
     switch (name) {
       case 'Committees':
+        CommitteeModel cm = CommitteeModel();
+        await cm.getNetworkData(
+          _buildURL(),
+        );
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => CommitteesScreen(chamber: chamber),
+            builder: (context) => CommitteesScreen(
+              chamber: chamber,
+              congressNum: selectedCongress,
+              cm: cm,
+            ),
           ),
         );
         break;
       case 'Members':
+        MembersModel mm = MembersModel();
+        await mm.getNetworkData(
+          _buildURL(),
+        );
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => MembersScreen(chamber: chamber),
+            builder: (context) => MembersScreen(
+              chamber: chamber,
+              congressNum: selectedCongress,
+              mm: mm,
+            ),
           ),
         );
         break;
       case 'Bills':
+        BillsModel bm = BillsModel();
+        await bm.getNetworkData(
+          _buildURL(),
+        );
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => BillsScreen(chamber: chamber),
+            builder: (context) => BillsScreen(
+              chamber: chamber,
+              congressNum: selectedCongress,
+              bm: bm,
+            ),
           ),
         );
         break;
       case 'Votes':
+        VotesModel vm = VotesModel();
+        await vm.getNetworkData(
+          _buildURL(),
+        );
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => VotesScreen(chamber: chamber),
+            builder: (context) => VotesScreen(
+              chamber: chamber,
+              congressNum: selectedCongress,
+              vm: vm,
+            ),
           ),
         );
         break;
       case 'Statements':
+        StatementsModel sm = StatementsModel();
+        await sm.getNetworkData(
+          _buildURL(),
+        );
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => StatementsScreen(chamber: chamber),
+            builder: (context) => StatementsScreen(
+              chamber: chamber,
+              congressNum: selectedCongress,
+              sm: sm,
+            ),
           ),
         );
         break;
@@ -334,43 +387,30 @@ class ListViewContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.fromLTRB(
+            padding: EdgeInsets.fromLTRB(
               18.0,
               8,
-              0,
-              0,
+              18.0,
+              20,
             ),
-            child: Text(
-              text,
-              style: TextStyle(
-                fontSize: 50.0,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white70,
+                borderRadius: BorderRadius.circular(20.0),
+                border: Border.all(color: Colors.grey),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
+                child: Text(
+                  text,
+                  style: TextStyle(
+                    fontSize: 50.0,
+                  ),
+                ),
               ),
             ),
           ),
-          Separator(),
         ],
-      ),
-    );
-  }
-}
-
-class Separator extends StatelessWidget {
-  const Separator({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(8.0, 0.0, 0.0, 8.0),
-      child: Container(
-        child: Text(
-          '________________________________________________________',
-          textAlign: TextAlign.left,
-          style: TextStyle(
-            fontSize: 12.0,
-          ),
-        ),
       ),
     );
   }
