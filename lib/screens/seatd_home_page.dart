@@ -293,8 +293,29 @@ class ListViewContainer extends StatelessWidget {
     boxColor = Colors.white,
   }) : super(key: key);
 
-  String _buildURL() {
-    return 'https://api.propublica.org/congress/v1/${selectedCongress.toLowerCase()}/${chamber.toLowerCase()}/${text.toLowerCase()}.json';
+  String _buildURL(String category) {
+    String url = '';
+    switch (category) {
+      case 'committees':
+        url =
+            'https://api.propublica.org/congress/v1/${selectedCongress.toLowerCase()}/${chamber.toLowerCase()}/${text.toLowerCase()}.json';
+        break;
+      case 'members':
+        url =
+            'https://api.propublica.org/congress/v1/${selectedCongress.toLowerCase()}/${chamber.toLowerCase()}/members.json';
+        break;
+      case 'bills':
+        url =
+            'https://api.propublica.org/congress/v1/bills/search.json?query={query}';
+        break;
+      case 'statements':
+        url = 'https://api.propublica.org/congress/v1/statements/latest.json';
+        break;
+      case 'votes':
+        url =
+            'https://api.propublica.org/congress/v1/$chamber/votes/recent.json';
+    }
+    return url;
   }
 
   _navigateToNextScreen(String name, BuildContext context) async {
@@ -302,7 +323,7 @@ class ListViewContainer extends StatelessWidget {
       case 'Committees':
         CommitteeModel cm = CommitteeModel();
         await cm.getNetworkData(
-          _buildURL(),
+          _buildURL('committees'),
         );
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -317,7 +338,7 @@ class ListViewContainer extends StatelessWidget {
       case 'Members':
         MembersModel mm = MembersModel();
         await mm.getNetworkData(
-          _buildURL(),
+          _buildURL('members'),
         );
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -332,7 +353,7 @@ class ListViewContainer extends StatelessWidget {
       case 'Bills':
         BillsModel bm = BillsModel();
         await bm.getNetworkData(
-          _buildURL(),
+          _buildURL('bills'),
         );
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -347,7 +368,7 @@ class ListViewContainer extends StatelessWidget {
       case 'Votes':
         VotesModel vm = VotesModel();
         await vm.getNetworkData(
-          _buildURL(),
+          _buildURL('votes'),
         );
         Navigator.of(context).push(
           MaterialPageRoute(
@@ -362,7 +383,7 @@ class ListViewContainer extends StatelessWidget {
       case 'Statements':
         StatementsModel sm = StatementsModel();
         await sm.getNetworkData(
-          _buildURL(),
+          _buildURL('statements'),
         );
         Navigator.of(context).push(
           MaterialPageRoute(

@@ -5,7 +5,7 @@ class StatementsModel {
   List results;
 
   Future getNetworkData(String url) async {
-    NetworkHelper nh = NetworkHelper(url: url);
+    NetworkHelper nh = NetworkHelper.url(url);
     data = await nh.getData();
   }
 }

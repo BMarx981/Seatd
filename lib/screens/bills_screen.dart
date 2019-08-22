@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/models/bills_model.dart';
 
+//https://api.propublica.org/congress/v1/bills/search.json?query={query}
 class BillsScreen extends StatefulWidget {
   BillsScreen({
     Key key,

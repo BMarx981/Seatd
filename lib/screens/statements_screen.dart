@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/models/statements_model.dart';
 
+//https://api.propublica.org/congress/v1/statements/search.json?query={term}
 class StatementsScreen extends StatefulWidget {
   StatementsScreen({
     Key key,
@@ -23,6 +24,7 @@ class _StatementsScreenState extends State<StatementsScreen> {
     super.initState();
     sm = widget.sm;
     _getTitle();
+    print(sm.data['results']);
   }
 
   String _getTitle() {

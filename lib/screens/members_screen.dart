@@ -23,6 +23,7 @@ class _MembersScreenState extends State<MembersScreen> {
     super.initState();
     mm = widget.mm;
     _getTitle();
+    print(mm.data['results']);
   }
 
   String _getTitle() {

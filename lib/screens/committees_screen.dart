@@ -27,11 +27,11 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
     print(cm.data['results']);
   }
 
-  _getTitle() {
+  String _getTitle() {
     if (widget.chamber == 'Joint') {
-      title = 'Joint Commitees';
+      return 'Joint Commitees';
     }
-    title = 'Commitees for the ${widget.chamber}';
+    return 'Commitees for the ${widget.chamber}';
   }
 
   @override
@@ -39,7 +39,7 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          title,
+          _getTitle(),
         ),
       ),
       body: Container(
