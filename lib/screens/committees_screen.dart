@@ -24,7 +24,6 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
     super.initState();
     cm = widget.cm;
     _getTitle();
-    print(cm.data['results']);
   }
 
   String _getTitle() {
@@ -32,6 +31,53 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
       return 'Joint Commitees';
     }
     return 'Commitees for the ${widget.chamber}';
+  }
+
+  List<Widget> _getCommittees() {
+    List<Widget> list = [];
+    list.add(
+      Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              width: 1.0,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            'Committes:',
+            style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
+    );
+    for (var com in cm.committees) {
+      list.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                width: 0.5,
+                color: Colors.black,
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                com['name'],
+                style: TextStyle(
+                  fontSize: 25.0,
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
+    return list;
   }
 
   @override
@@ -42,11 +88,8 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
           _getTitle(),
         ),
       ),
-      body: Container(
-        child: Text(
-          'Committes',
-          style: TextStyle(fontSize: 40.0),
-        ),
+      body: ListView(
+        children: _getCommittees(),
       ),
     );
   }
