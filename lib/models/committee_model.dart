@@ -4,7 +4,8 @@ import 'committee.dart';
 class CommitteeModel {
   dynamic data;
   dynamic results;
-  List<Committee> committees;
+  List<dynamic> committees;
+  List<Committee> commitList;
 
   void getNetworkData(String url) async {
     NetworkHelper nh = NetworkHelper.url(url);
@@ -24,7 +25,7 @@ class CommitteeModel {
           com.subs.add(s);
         }
       }
-      committees.add(com);
+      commitList.add(com);
     }
   }
 }
