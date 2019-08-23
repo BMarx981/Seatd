@@ -54,13 +54,15 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
         ),
       ),
     );
-    for (var com in cm.committees) {
+    for (var com in cm.commitList) {
       list.add(
         GestureDetector(
           onTap: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => CommitteeDetail(),
+                builder: (context) => CommitteeDetail(
+                  data: com,
+                ),
               ),
             );
           },
@@ -79,7 +81,7 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      com['name'],
+                      com.name,
                       style: TextStyle(
                         fontSize: 25.0,
                       ),
@@ -92,7 +94,7 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
-                        'Chair: ${com['chair']} (${com['chair_party']})',
+                        'Chair: ${com.chair} (${com.chairParty})',
                         style: TextStyle(
                           fontSize: 18.0,
                         ),
