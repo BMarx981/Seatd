@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/models/committee_model.dart';
+import 'package:seatd/screens/committee_detail.dart';
 
 class CommitteesScreen extends StatefulWidget {
   CommitteesScreen(
@@ -55,22 +56,50 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
     );
     for (var com in cm.committees) {
       list.add(
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                width: 0.5,
-                color: Colors.black,
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => CommitteeDetail(),
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                com['name'],
-                style: TextStyle(
-                  fontSize: 25.0,
+            );
+          },
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 0.5,
+                  color: Colors.black,
                 ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      com['name'],
+                      style: TextStyle(
+                        fontSize: 25.0,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 2.0,
+                  ),
+                  Container(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        'Chair: ${com['chair']} (${com['chair_party']})',
+                        style: TextStyle(
+                          fontSize: 18.0,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
