@@ -27,7 +27,6 @@ class CommitteeModel {
         com.chair = c['chair'];
         com.chairParty = c['chair_party'];
         com.subs = c['subcommittees'];
-        print(com.subs);
         commitList.add(com);
       }
     }

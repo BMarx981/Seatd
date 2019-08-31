@@ -47,9 +47,15 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Text(
-            'Committes:',
-            style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+          child: Container(
+            decoration: BoxDecoration(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Committes:',
+                style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
+              ),
+            ),
           ),
         ),
       ),
@@ -74,6 +80,10 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
                   width: 0.5,
                   color: Colors.black,
                 ),
+                borderRadius: BorderRadius.circular(
+                  20.0,
+                ),
+                color: Colors.white,
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,6 +132,7 @@ class _CommitteesScreenState extends State<CommitteesScreen> {
       body: ListView(
         children: _getCommittees(),
       ),
+      backgroundColor: Colors.grey[300],
     );
   }
 }

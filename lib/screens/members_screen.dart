@@ -22,15 +22,21 @@ class _MembersScreenState extends State<MembersScreen> {
   initState() {
     super.initState();
     mm = widget.mm;
-    _getTitle();
-    print(mm.data['results']);
+//    print(mm.data['results']);
   }
 
   String _getTitle() {
     if (widget.chamber == 'Joint') {
       return 'Joint Members';
     }
-    return 'Members for the ${widget.chamber}';
+    return 'Members of the ${widget.chamber}';
+  }
+
+  List<Widget> _getMembers() {
+    List<Widget> list = [];
+
+
+    return list;
   }
 
   @override
@@ -42,9 +48,8 @@ class _MembersScreenState extends State<MembersScreen> {
         ),
       ),
       body: Container(
-        child: Text(
-          'Members',
-          style: TextStyle(fontSize: 40.0),
+        child: ListView(
+          children: _getMembers(),
         ),
       ),
     );
