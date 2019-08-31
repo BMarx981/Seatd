@@ -30,4 +30,4 @@ class Seatd extends StatelessWidget {
       initialRoute: SeatdHomePage.id,
     );
   }
-} //5:00 flight#790
+}

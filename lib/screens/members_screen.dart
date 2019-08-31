@@ -22,7 +22,8 @@ class _MembersScreenState extends State<MembersScreen> {
   initState() {
     super.initState();
     mm = widget.mm;
-//    print(mm.data['results']);
+    _getTitle();
+    print(mm.data['results']);
   }
 
   String _getTitle() {
@@ -34,7 +35,6 @@ class _MembersScreenState extends State<MembersScreen> {
 
   List<Widget> _getMembers() {
     List<Widget> list = [];
-
 
     return list;
   }
@@ -48,8 +48,9 @@ class _MembersScreenState extends State<MembersScreen> {
         ),
       ),
       body: Container(
-        child: ListView(
-          children: _getMembers(),
+        child: Text(
+          'Members',
+          style: TextStyle(fontSize: 40.0),
         ),
       ),
     );
