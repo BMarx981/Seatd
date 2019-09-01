@@ -156,7 +156,7 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(16.0, 20, 16.0, 20),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     GestureDetector(
                       onTap: () {
@@ -195,6 +195,9 @@ class _SeatdHomePageState extends State<SeatdHomePage> {
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      width: 2.0,
                     ),
                     GestureDetector(
                       onTap: () {

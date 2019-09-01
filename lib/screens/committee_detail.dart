@@ -84,7 +84,7 @@ class CommitteeContainer extends StatelessWidget {
       for (var item in c.subs) {
         list.add(
           Padding(
-            padding: const EdgeInsets.all(28.0),
+            padding: const EdgeInsets.all(12.0),
             child: Container(
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(

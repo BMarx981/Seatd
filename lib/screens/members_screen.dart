@@ -22,8 +22,6 @@ class _MembersScreenState extends State<MembersScreen> {
   initState() {
     super.initState();
     mm = widget.mm;
-    _getTitle();
-    print(mm.data['results']);
   }
 
   String _getTitle() {
@@ -35,7 +33,49 @@ class _MembersScreenState extends State<MembersScreen> {
 
   List<Widget> _getMembers() {
     List<Widget> list = [];
-
+    list.add(
+      Container(
+        decoration: BoxDecoration(
+          border: Border(
+            bottom: BorderSide(
+              width: 1.0,
+            ),
+          ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            child: Text(
+              'Members',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 40.0,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+    for (var data in mm.memberList) {
+      list.add(
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(
+                20.0,
+              ),
+              border: Border.all(
+                color: Colors.black,
+                width: 1.0,
+              ),
+            ),
+            child: Text(data.title),
+          ),
+        ),
+      );
+    }
     return list;
   }
 
@@ -48,9 +88,8 @@ class _MembersScreenState extends State<MembersScreen> {
         ),
       ),
       body: Container(
-        child: Text(
-          'Members',
-          style: TextStyle(fontSize: 40.0),
+        child: ListView(
+          children: _getMembers(),
         ),
       ),
     );

@@ -7,7 +7,7 @@ class CommitteeModel {
   List<dynamic> committees;
   List<Committee> commitList = List<Committee>();
 
-  void getNetworkData(String url) async {
+  Future getNetworkData(String url) async {
     NetworkHelper nh = NetworkHelper.url(url);
     data = await nh.getData();
     results = data['results'];
@@ -20,6 +20,7 @@ class CommitteeModel {
   _getInfo(dynamic committees) {
     for (var c in committees) {
       Committee com = Committee();
+//      assert(c != null);
       if (c != null) {
         com.id = c['id'];
         com.name = c['name'];
