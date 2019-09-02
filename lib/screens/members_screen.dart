@@ -60,18 +60,65 @@ class _MembersScreenState extends State<MembersScreen> {
       list.add(
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(
-                20.0,
+          child: GestureDetector(
+            onTap: () {
+              print(data);
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(
+                  20.0,
+                ),
+                border: Border.all(
+                  color: Colors.black,
+                  width: 1.0,
+                ),
               ),
-              border: Border.all(
-                color: Colors.black,
-                width: 1.0,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Text(
+                      'Title: ${data.title}',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Text(
+                      'Name: ${data.firstName} ${data.lastName}, DOB: ${data.dateOfBirth}',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      'Party: ${data.party} State: ${data.state}',
+                      style: TextStyle(
+                        fontSize: 20.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Text(
+                      'Phone #: ${data.phone}',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    Text(
+                      'Office Address: ${data.office}',
+                      style: TextStyle(
+                        fontSize: 15.0,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-            child: Text(data.title),
           ),
         ),
       );
@@ -87,6 +134,7 @@ class _MembersScreenState extends State<MembersScreen> {
           _getTitle(),
         ),
       ),
+      backgroundColor: Colors.grey[300],
       body: Container(
         child: ListView(
           children: _getMembers(),

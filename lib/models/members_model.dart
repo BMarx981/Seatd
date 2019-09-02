@@ -19,15 +19,30 @@ class MembersModel {
   }
 
   _getMemberData(dynamic members) {
-    for (var l in members) {
+    for (var item in members) {
       Member m = Member();
-      if (l != null) {
-        m.apiUri = l['api_uri'];
-        m.phone = l['phone'];
-        m.firstName = l['first_name'];
-        m.lastName = l['last_name'];
+      if (item != null) {
+        m.apiUri = item['api_uri'] != null ? item['api_uri'] : '';
+        m.phone = item['phone'] != null ? item['phone'] : '';
+        m.firstName = item['first_name'] != null ? item['first_name'] : '';
+        m.lastName = item['last_name'] != null ? item['last_name'] : '';
+        m.title = item['title'] != null ? item['title'] : '';
+        m.party = item['party'] != null ? item['party'] : '';
+        m.state = item['state'] != null ? item['state'] : '';
+        m.dateOfBirth = _processDOB(DateTime.parse(item['date_of_birth']));
+        m.office = item['office'] != null ? item['office'] : '';
         memberList.add(m);
       }
     }
+  }
+
+  String _processDOB(DateTime dobInput) {
+    if (dobInput == null) {
+      return '';
+    }
+    String month = dobInput.month.toString();
+    String day = dobInput.day.toString();
+    String year = dobInput.year.toString();
+    return '$month/$day/$year';
   }
 }
