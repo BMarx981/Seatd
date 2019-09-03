@@ -6,6 +6,7 @@ import 'screens/bills_screen.dart';
 import 'screens/votes_screen.dart';
 import 'screens/statements_screen.dart';
 import 'package:seatd/screens/committee_detail.dart';
+import 'package:seatd/screens/member_detail.dart';
 
 void main() => runApp(Seatd());
 
@@ -26,6 +27,7 @@ class Seatd extends StatelessWidget {
         StatementsScreen.id: (context) => StatementsScreen(),
         SeatdHomePage.id: (context) => SeatdHomePage(),
         CommitteeDetail.id: (context) => CommitteeDetail(),
+        MemberDetailScreen.id: (context) => MemberDetailScreen(),
       },
       initialRoute: SeatdHomePage.id,
     );

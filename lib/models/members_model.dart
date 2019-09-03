@@ -45,4 +45,17 @@ class MembersModel {
     String year = dobInput.year.toString();
     return '$month/$day/$year';
   }
+
+  Future getSingleMember(String url) async {
+    NetworkHelper nh = NetworkHelper.url(url);
+    Member m = Member();
+    dynamic data = await nh.getData();
+    m.roles = data['roles'];
+    print(m.roles);
+//    for (var role in m.roles) {
+//      m.committees = role['committees'];
+//    }
+  }
+
+  Future _memberNetworkHelper(String url) async {}
 }
