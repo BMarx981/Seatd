@@ -50,12 +50,14 @@ class MembersModel {
     NetworkHelper nh = NetworkHelper.url(url);
     Member m = Member();
     dynamic data = await nh.getData();
-    m.roles = data['roles'];
-    print(m.roles);
+    List results = data['results'];
+    for (var r in results) {
+      List roles = r['roles'];
+      print(roles);
+    }
+
 //    for (var role in m.roles) {
 //      m.committees = role['committees'];
 //    }
   }
-
-  Future _memberNetworkHelper(String url) async {}
 }
