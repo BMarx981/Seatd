@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/models/members_model.dart';
-import 'package:seatd/models/member.dart';
+//import 'package:seatd/models/member.dart';
 import 'package:seatd/screens/member_detail.dart';
-import 'package:seatd/network_helper.dart';
+//import 'package:seatd/network_helper.dart';
 
 class MembersScreen extends StatefulWidget {
   MembersScreen(
