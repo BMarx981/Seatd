@@ -6,6 +6,7 @@ class MembersModel {
   dynamic data;
   List results;
   List<Member> memberList = List<Member>();
+  List<Role> rolesList = List<Role>();
 
   Future getNetworkData(String url) async {
     NetworkHelper nh = NetworkHelper.url(url);
@@ -68,8 +69,7 @@ class MembersModel {
         role.state = item['state'] != null ? item['state'] : '';
         role.phone = item['phone'] != null ? item['phone'] : '';
         role.party = item['party'] != null ? item['phone'] : '';
-        m.roles.add(role);
-        print('The role is: $role');
+        rolesList.add(role);
       }
     }
   }

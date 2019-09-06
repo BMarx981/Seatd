@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/models/members_model.dart';
-//import 'package:seatd/models/member.dart';
 import 'package:seatd/screens/member_detail.dart';
-//import 'package:seatd/network_helper.dart';
 
 class MembersScreen extends StatefulWidget {
   MembersScreen(
@@ -64,11 +62,11 @@ class _MembersScreenState extends State<MembersScreen> {
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
-            onTap: () {
-              mm.getSingleMember(data.apiUri);
+            onTap: () async {
+              await mm.getSingleMember(data.apiUri);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => MemberDetailScreen(member: data),
+                  builder: (context) => MemberDetailScreen(member: mm),
                 ),
               );
             },
@@ -143,10 +141,8 @@ class _MembersScreenState extends State<MembersScreen> {
         ),
       ),
       backgroundColor: Colors.grey[300],
-      body: Container(
-        child: ListView(
-          children: _getMembers(),
-        ),
+      body: ListView(
+        children: _getMembers(),
       ),
     );
   }
