@@ -31,9 +31,25 @@ class _MemberDetailScreenState extends State<MemberDetailScreen> {
       body: Container(
           child: ListView.builder(
         itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-                '${roles[index].title.toString()} ${roles[index].firstName} ${roles[index].lastName}'),
+          return Container(
+            child: Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text('Title'),
+                    Text('Name'),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Text('State'),
+                    Text('Party'),
+                  ],
+                ),
+              ],
+            ),
           );
         },
         itemCount: roles.length,

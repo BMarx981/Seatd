@@ -19,10 +19,12 @@ class MembersScreen extends StatefulWidget {
 
 class _MembersScreenState extends State<MembersScreen> {
   MembersModel mm;
+  List memberList;
   @override
   initState() {
     super.initState();
     mm = widget.mm;
+    memberList = _getMembers();
   }
 
   String _getTitle() {
@@ -34,29 +36,6 @@ class _MembersScreenState extends State<MembersScreen> {
 
   List<Widget> _getMembers() {
     List<Widget> list = [];
-    list.add(
-      Container(
-        decoration: BoxDecoration(
-          border: Border(
-            bottom: BorderSide(
-              width: 1.0,
-            ),
-          ),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Container(
-            child: Text(
-              'Members',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 40.0,
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
     for (var data in mm.memberList) {
       list.add(
         Padding(
@@ -141,8 +120,41 @@ class _MembersScreenState extends State<MembersScreen> {
         ),
       ),
       backgroundColor: Colors.grey[300],
-      body: ListView(
-        children: _getMembers(),
+      body: Column(
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  bottom: BorderSide(
+                    width: 1.0,
+                  ),
+                ),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  child: Text(
+                    'Members',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 40.0,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: memberList.length,
+              itemBuilder: (context, index) {
+                return memberList[index];
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
