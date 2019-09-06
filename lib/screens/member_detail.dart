@@ -15,8 +15,15 @@ class MemberDetailScreen extends StatefulWidget {
 class _MemberDetailScreenState extends State<MemberDetailScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Text("Member name goes here."),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Member Detail'),
+      ),
+      body: Container(
+        child: Column(
+          children: <Widget>[],
+        ),
+      ),
     );
   }
 }

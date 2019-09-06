@@ -10,8 +10,8 @@ class Member {
       office,
       phone;
 
-  List committees;
-  List roles;
+  List memberCommittees = List();
+  List roles = List();
 
   @override
   toString() {

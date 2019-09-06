@@ -1,5 +1,6 @@
 import 'package:seatd/network_helper.dart';
 import 'member.dart';
+import 'role.dart';
 
 class MembersModel {
   dynamic data;
@@ -31,6 +32,8 @@ class MembersModel {
         m.state = item['state'] != null ? item['state'] : '';
         m.dateOfBirth = _processDOB(DateTime.parse(item['date_of_birth']));
         m.office = item['office'] != null ? item['office'] : '';
+        //********************* Detailed Member fields **************
+
         memberList.add(m);
       }
     }
@@ -53,11 +56,21 @@ class MembersModel {
     List results = data['results'];
     for (var r in results) {
       List roles = r['roles'];
-      print(roles);
-    }
 
-//    for (var role in m.roles) {
-//      m.committees = role['committees'];
-//    }
+      for (var item in roles) {
+        Role role = Role();
+        role.title = item['title'] != null ? item['title'] : '';
+        role.firstName = item['first_name'] != null ? item['first_name'] : '';
+        role.lastName = item['last_name'] != null ? item['last_name'] : '';
+        role.dateOfBirth =
+            item['date_of_birth'] != null ? item['date_of_birth'] : '';
+        role.congress = item['congress'] != null ? item['congress'] : '';
+        role.state = item['state'] != null ? item['state'] : '';
+        role.phone = item['phone'] != null ? item['phone'] : '';
+        role.party = item['party'] != null ? item['phone'] : '';
+        m.roles.add(role);
+        print('The role is: $role');
+      }
+    }
   }
 }
