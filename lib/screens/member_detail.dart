@@ -29,31 +29,33 @@ class _MemberDetailScreenState extends State<MemberDetailScreen> {
         title: Text('Member Detail'),
       ),
       body: Container(
-          child: ListView.builder(
-        itemBuilder: (context, index) {
-          return Container(
-            child: Column(
-              children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text('Title'),
-                    Text('Name'),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Text('State'),
-                    Text('Party'),
-                  ],
-                ),
-              ],
-            ),
-          );
-        },
-        itemCount: roles.length,
-      )),
+        child: ListView.separated(
+          itemBuilder: (context, index) {
+            return Container(
+              child: Column(
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text('Title'),
+                      Text('Name'),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Text('State'),
+                      Text('Party'),
+                    ],
+                  ),
+                ],
+              ),
+            );
+          },
+          itemCount: roles.length,
+          separatorBuilder: (BuildContext context, int index) => Divider(),
+        ),
+      ),
     );
   }
 }

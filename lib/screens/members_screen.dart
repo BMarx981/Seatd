@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/models/members_model.dart';
 import 'package:seatd/screens/member_detail.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 
 class MembersScreen extends StatefulWidget {
   MembersScreen(
@@ -20,6 +21,7 @@ class MembersScreen extends StatefulWidget {
 class _MembersScreenState extends State<MembersScreen> {
   MembersModel mm;
   List memberList;
+  ScrollController sc = ScrollController();
   @override
   initState() {
     super.initState();
@@ -147,11 +149,46 @@ class _MembersScreenState extends State<MembersScreen> {
             ),
           ),
           Expanded(
-            child: ListView.builder(
-              itemCount: memberList.length,
-              itemBuilder: (context, index) {
-                return memberList[index];
+            child: DraggableScrollbar.arrows(
+              alwaysVisibleScrollThumb: true,
+              backgroundColor: Colors.grey[500],
+              controller: sc,
+              labelTextBuilder: (offset) {
+                int listIndex = sc.hasClients
+                    ? (sc.offset /
+                            sc.position.maxScrollExtent *
+                            mm.memberList.length)
+                        .toInt()
+                    : 0;
+
+                if (listIndex > mm.memberList.length - 1) {
+                  listIndex = mm.memberList.length - 1;
+                }
+                print(listIndex);
+                String name = mm.memberList[listIndex].lastName;
+                String text = name.length > 7
+                    ? name.substring(
+                        0,
+                        7,
+                      )
+                    : name;
+                return Text(
+                  text,
+                  style: TextStyle(
+                    color: Colors.grey[800],
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                );
               },
+              child: ListView.builder(
+                controller: sc,
+                itemCount: memberList.length,
+                itemExtent: 195.0,
+                itemBuilder: (context, index) {
+                  return memberList[index];
+                },
+              ),
             ),
           ),
         ],
