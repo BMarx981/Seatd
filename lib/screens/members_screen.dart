@@ -47,7 +47,8 @@ class _MembersScreenState extends State<MembersScreen> {
               await mm.getSingleMember(data.apiUri);
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => MemberDetailScreen(member: mm),
+                  builder: (context) =>
+                      MemberDetailScreen(model: mm, member: data),
                 ),
               );
             },
@@ -158,13 +159,12 @@ class _MembersScreenState extends State<MembersScreen> {
                     ? (sc.offset /
                             sc.position.maxScrollExtent *
                             mm.memberList.length)
-                        .toInt()
+                        .floor()
                     : 0;
 
                 if (listIndex > mm.memberList.length - 1) {
                   listIndex = mm.memberList.length - 1;
                 }
-                print(listIndex);
                 String name = mm.memberList[listIndex].lastName;
                 String text = name.length > 7
                     ? name.substring(

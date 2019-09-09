@@ -51,8 +51,8 @@ class MembersModel {
   }
 
   Future getSingleMember(String url) async {
+    rolesList.clear();
     NetworkHelper nh = NetworkHelper.url(url);
-    Member m = Member();
     dynamic data = await nh.getData();
     List results = data['results'];
     for (var r in results) {
@@ -68,7 +68,10 @@ class MembersModel {
         role.congress = item['congress'] != null ? item['congress'] : '';
         role.state = item['state'] != null ? item['state'] : '';
         role.phone = item['phone'] != null ? item['phone'] : '';
-        role.party = item['party'] != null ? item['phone'] : '';
+        role.party = item['party'] != null ? item['party'] : '';
+//        role.roleCommittees =
+//            item['committees'] != null ? item['committees'] : '';
+        role.buildCommittees(item['committees']);
         rolesList.add(role);
       }
     }
