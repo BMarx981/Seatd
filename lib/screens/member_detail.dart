@@ -19,31 +19,12 @@ class _MemberDetailScreenState extends State<MemberDetailScreen> {
   List<Member> roles;
   Member member;
   MembersModel model;
-  List<Container> committees = List<Container>();
   @override
   void initState() {
     super.initState();
     roles = widget.model.rolesList;
     member = widget.member;
     model = widget.model;
-    _buildRoles(roles);
-  }
-
-  List<Widget> _buildRoles(List list) {
-    for (var item in list) {
-      committees.add(
-        Container(
-          child: Column(
-            children: <Widget>[
-              Text(item.name != null ? item.name : ''),
-              Text(item.title != null ? item.title : ''),
-              Text(item.side != null ? item.side : ''),
-            ],
-          ),
-        ),
-      );
-    }
-    return committees;
   }
 
   @override
@@ -76,18 +57,43 @@ class _MemberDetailScreenState extends State<MemberDetailScreen> {
                     ),
                     Container(
                       height: 75.0,
-                      child: ListView(
+                      child: ListView.separated(
                         scrollDirection: Axis.horizontal,
-                        children:
-                            _buildRoles(model.rolesList[index].roleCommittees),
+                        itemCount: model.rolesList[index].roleCommittees.length,
+                        separatorBuilder: (context, index) {
+                          return Divider(indent: 16.0, color: Colors.blue);
+                        },
+                        itemBuilder: (context, i) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Column(
+                              children: <Widget>[
+                                Text(model.rolesList[index].roleCommittees[i]
+                                            .name !=
+                                        null
+                                    ? model
+                                        .rolesList[index].roleCommittees[i].name
+                                    : '1'),
+                                Text(model.rolesList[index].roleCommittees[i]
+                                            .title !=
+                                        null
+                                    ? model.rolesList[index].roleCommittees[i]
+                                        .title
+                                    : '2'),
+                                Text(model.rolesList[index].roleCommittees[i]
+                                            .side !=
+                                        null
+                                    ? model
+                                        .rolesList[index].roleCommittees[i].side
+                                    : '3'),
+                              ],
+                            ),
+                          );
+                        },
                       ),
                     ),
-//                    ListView.builder(
-//                      itemBuilder: (context, index) {
-//                        return committees[index];
-//                      },
-//                      itemCount: roles.length,
-//                    ),
                   ],
                 ),
               ),

@@ -69,9 +69,7 @@ class MembersModel {
         role.state = item['state'] != null ? item['state'] : '';
         role.phone = item['phone'] != null ? item['phone'] : '';
         role.party = item['party'] != null ? item['party'] : '';
-//        role.roleCommittees =
-//            item['committees'] != null ? item['committees'] : '';
-        role.buildCommittees(item['committees']);
+        role.roleCommittees = item['committees'];
         rolesList.add(role);
       }
     }
