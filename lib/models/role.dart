@@ -5,11 +5,15 @@ class Role extends Member {
   List roleCommittees = List();
 
   buildCommittees(List list) {
+    print('buildC called');
+    Role r = Role();
     for (var item in list) {
+      print("build built");
       //name, title, side
-      name = item['name'];
-      title = item['title'];
-      side = item['side'];
+      r.name = item['name'];
+      r.title = item['title'];
+      r.side = item['side'];
     }
+    roleCommittees.add(r);
   }
 }

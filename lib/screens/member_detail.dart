@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:seatd/models/members_model.dart';
 import 'package:seatd/models/member.dart';
+import 'committee_detail.dart';
 
 class MemberDetailScreen extends StatefulWidget {
   MemberDetailScreen({
@@ -58,37 +59,64 @@ class _MemberDetailScreenState extends State<MemberDetailScreen> {
                     Container(
                       height: 75.0,
                       child: ListView.separated(
+                        separatorBuilder: (context, ind) {
+                          return Divider(
+                            indent: 12.0,
+                            color: Colors.black,
+                          );
+                        },
                         scrollDirection: Axis.horizontal,
                         itemCount: model.rolesList[index].roleCommittees.length,
-                        separatorBuilder: (context, index) {
-                          return Divider(indent: 16.0, color: Colors.blue);
-                        },
                         itemBuilder: (context, i) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20.0),
-                            ),
-                            child: Column(
-                              children: <Widget>[
-                                Text(model.rolesList[index].roleCommittees[i]
-                                            .name !=
-                                        null
-                                    ? model
-                                        .rolesList[index].roleCommittees[i].name
-                                    : '1'),
-                                Text(model.rolesList[index].roleCommittees[i]
-                                            .title !=
-                                        null
-                                    ? model.rolesList[index].roleCommittees[i]
-                                        .title
-                                    : '2'),
-                                Text(model.rolesList[index].roleCommittees[i]
-                                            .side !=
-                                        null
-                                    ? model
-                                        .rolesList[index].roleCommittees[i].side
-                                    : '3'),
-                              ],
+                          return GestureDetector(
+                            onTap: () {
+                              print(model.rolesList[index].roleCommittees[i]
+                                  ['api_uri']);
+//                              Navigator.of(context).push(
+//                                MaterialPageRoute(
+//                                  builder: (context) => CommitteeDetail(
+//                                    data: model.rolesList[index]
+//                                        .roleCommittees[i]['api_uri'],
+//                                  ),
+//                                ),
+//                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Column(
+                                  children: <Widget>[
+                                    Text(model.rolesList[index]
+                                                .roleCommittees[i]['name'] !=
+                                            null
+                                        ? model.rolesList[index]
+                                            .roleCommittees[i]['name']
+                                        : ''),
+                                    SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    Text(model.rolesList[index]
+                                                .roleCommittees[i]['title'] !=
+                                            null
+                                        ? model.rolesList[index]
+                                            .roleCommittees[i]['title']
+                                        : ''),
+                                    SizedBox(
+                                      width: 8.0,
+                                    ),
+                                    Text(model.rolesList[index]
+                                                .roleCommittees[i]['side'] !=
+                                            null
+                                        ? model.rolesList[index]
+                                            .roleCommittees[i]['side']
+                                        : ''),
+                                  ],
+                                ),
+                              ),
                             ),
                           );
                         },

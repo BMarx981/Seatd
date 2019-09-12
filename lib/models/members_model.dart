@@ -61,10 +61,6 @@ class MembersModel {
       for (var item in roles) {
         Role role = Role();
         role.title = item['title'] != null ? item['title'] : '';
-        role.firstName = item['first_name'] != null ? item['first_name'] : '';
-        role.lastName = item['last_name'] != null ? item['last_name'] : '';
-        role.dateOfBirth =
-            item['date_of_birth'] != null ? item['date_of_birth'] : '';
         role.congress = item['congress'] != null ? item['congress'] : '';
         role.state = item['state'] != null ? item['state'] : '';
         role.phone = item['phone'] != null ? item['phone'] : '';
