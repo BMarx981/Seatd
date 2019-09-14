@@ -24,7 +24,6 @@ class _BillsScreenState extends State<BillsScreen> {
     super.initState();
     bm = widget.bm;
     _getTitle();
-    print(bm.data['results']);
   }
 
   String _getTitle() {
