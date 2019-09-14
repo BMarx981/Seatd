@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:seatd/models/members_model.dart';
 import 'package:seatd/models/member.dart';
 import 'committee_detail.dart';
+import 'package:seatd/models/committee_model.dart';
 
 class MemberDetailScreen extends StatefulWidget {
   MemberDetailScreen({
@@ -69,17 +70,19 @@ class _MemberDetailScreenState extends State<MemberDetailScreen> {
                         itemCount: model.rolesList[index].roleCommittees.length,
                         itemBuilder: (context, i) {
                           return GestureDetector(
-                            onTap: () {
-                              print(model.rolesList[index].roleCommittees[i]
-                                  ['api_uri']);
-//                              Navigator.of(context).push(
-//                                MaterialPageRoute(
-//                                  builder: (context) => CommitteeDetail(
-//                                    data: model.rolesList[index]
-//                                        .roleCommittees[i]['api_uri'],
-//                                  ),
-//                                ),
-//                              );
+                            onTap: () async {
+                              CommitteeModel cm = CommitteeModel();
+                              await cm.getSingleCommittee(
+                                model.rolesList[index].roleCommittees[i]
+                                    ['api_uri'],
+                              );
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => CommitteeDetail(
+                                    data: cm.committee,
+                                  ),
+                                ),
+                              );
                             },
                             child: Container(
                               decoration: BoxDecoration(
